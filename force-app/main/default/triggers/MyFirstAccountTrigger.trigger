@@ -11,6 +11,7 @@ trigger MyFirstAccountTrigger on Account (before insert, after insert) {
                     accountToInsert.Id = newAccount.Id;
                     accountToInsert.Rating = newAccount.Rating;
                     accountsToInsert.add(accountToInsert);
+                    //test
                 }
             }
         }
