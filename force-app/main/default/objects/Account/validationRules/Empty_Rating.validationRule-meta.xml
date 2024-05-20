@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Empty_Rating</fullName>
+    <active>true</active>
+    <description>Can&apos;t insert account without rating</description>
+    <errorConditionFormula>ISPICKVAL(Rating, &apos;&apos;)</errorConditionFormula>
+    <errorMessage>You should add Rating in order to add the account</errorMessage>
+</ValidationRule>
