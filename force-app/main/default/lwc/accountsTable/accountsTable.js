@@ -87,7 +87,7 @@ export default class AccountsTable extends LightningElement {
                 }),
             );
         }
-    }
+    }  
 
     handleAddAccount() {
         if (!this.newAccountName.trim()) {

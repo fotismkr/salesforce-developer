@@ -13,7 +13,7 @@ public class getAccounts {
     @AuraEnabled
     public static string insertAccounts(String accountName, String setActive, String setPhone){
         if (String.isBlank(setActive)) {
-            setActive = 'false';
+            setActive = 'No'; 
         }
         try {
             Account newAccount = new Account(Name = accountName, Active__c = setActive, Phone = setPhone);
