@@ -1,0 +1,50 @@
+<template>
+    <lightning-card  variant="Narrow"  title="Get Current User Info in LWC" icon-name="standard:user">
+        <div class="slds-box slds-m-around_medium">
+            <p><b>User Name :</b> {currentUserName}</p>
+        </div>
+    </lightning-card>
+    <lightning-input label="Name" value={currentUserName} onchange={handleChange}></lightning-input>
+    <template if:true={accountList}>
+        <lightning-datatable
+            key-field="Id"
+            data={accountList}
+            onsave={handleSave}
+            draft-values={draftValues}
+            columns={columns}>
+        </lightning-datatable>
+    </template>
+    <lightning-card title="New Accounts">
+        <div class="slds-m-around_medium">
+            <lightning-button label="Add New Account" onclick={toggleInputField}></lightning-button>
+            <template if:true={showInputField}>
+                <div class="slds-box slds-m-around_medium">
+                    <div class="slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                            <lightning-input 
+                                label="Account Name" 
+                                value={newAccountName} 
+                                onchange={handleNameChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                            <lightning-input 
+                                label="Phone" 
+                                value={newPhone} 
+                                onchange={handlePhoneChange}
+                            ></lightning-input>
+                        </div>
+                        <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                            <lightning-input 
+                                label="Active" 
+                                value={newActive} 
+                                onchange={handleActiveChange}
+                            ></lightning-input>
+                        </div>
+                    </div>
+                </div>
+                <lightning-button label="Save" onclick={handleAddAccount}></lightning-button>
+            </template>
+        </div>
+    </lightning-card>
+</template>
