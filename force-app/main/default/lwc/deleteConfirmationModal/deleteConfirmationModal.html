@@ -1,0 +1,22 @@
+<template>
+    <lightning-modal-header label="Delete Account"></lightning-modal-header>
+    <lightning-modal-body> Warning: {content} </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button
+            class="slds-button"
+            variant="neutral"
+            label="Cancel"
+            name="Cancel"
+            onclick={handleClick}
+        ></lightning-button>
+        <lightning-button
+            class="slds-button slds-m-left_x-small"
+            key-field="Id"
+            data={accountId}
+            variant="brand"
+            label="Delete"
+            name="Delete"
+            onclick={handleClick}
+        ></lightning-button>
+    </lightning-modal-footer>
+</template>

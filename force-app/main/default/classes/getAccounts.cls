@@ -1,9 +1,9 @@
 public class getAccounts {
     @AuraEnabled(cacheable=true)
-    public static List<Account> getAccounts(String id){
+    public static List<Account> getAccounts(String currentAccountId){
         List<User> user = [SELECT Id FROM User where ID =: UserInfo.getUserId()];
         try {
-            List<Account> accts = [SELECT Id, Name, Active__c, Rating, Phone FROM Account WHERE OwnerId = :user[0].id ORDER BY CreatedDate DESC LIMIT 5 ];
+            List<Account> accts = [SELECT Id, Name, Active__c, Rating, Phone FROM Account WHERE OwnerId = :user[0].id AND id !=: currentAccountId ORDER BY CreatedDate DESC LIMIT 5 ];
             return accts;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());

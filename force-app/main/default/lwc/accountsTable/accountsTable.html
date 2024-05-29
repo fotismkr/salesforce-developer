@@ -11,12 +11,20 @@
             data={accountList}
             onsave={handleSave}
             draft-values={draftValues} 
+            onrowaction={handleDeleteModal}
             columns={columns}>
         </lightning-datatable>
     </template>
     <lightning-card title="New Accounts">
         <div class="slds-m-around_medium">
-            <lightning-button label="Add New Account" onclick={toggleInputField}></lightning-button>
+            <lightning-button 
+                icon-name="utility:add" 
+                alternative-text="Add" 
+                variant="border-filled" 
+                class="green-icon"
+                label="Add New Account" 
+                onclick={toggleInputField}>
+            </lightning-button>
             <template if:true={showInputField}>
                 <div class="slds-box slds-m-around_medium">
                     <div class="slds-grid slds-gutters">

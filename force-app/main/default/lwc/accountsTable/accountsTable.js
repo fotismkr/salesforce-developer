@@ -12,28 +12,39 @@ import ACTIVE from '@salesforce/schema/Account.Active__c';
 import USERNAME from '@salesforce/schema/User.Name';
 import Id from '@salesforce/user/Id';
 import { getRecord } from 'lightning/uiRecordApi';
+import { CurrentPageReference } from 'lightning/navigation';
+import ConfirmationModal from 'c/deleteConfirmationModal';
+
+
+const actions = [
+    { label: 'Delete', name: 'delete' }
+];
 
 const COLS = [
     { label: 'Id', fieldName: ACCOUNT_ID.fieldApiName},
     { label: 'Name', fieldName: ACCOUNT_NAME.fieldApiName, editable: true},
     { label: 'Rating', fieldName: RATING.fieldApiName, editable: true},
     { label: 'Phone', fieldName: PHONE.fieldApiName, editable: true},
-    { label: 'Active', fieldName: ACTIVE.fieldApiName, editable: true}
+    { label: 'Active', fieldName: ACTIVE.fieldApiName, editable: true},
+    { type: 'action', typeAttributes: { rowActions: actions, menuAlignment: 'right' } }
 ]
 
 export default class AccountsTable extends LightningElement {
     @api recordId;
+    confirmMessage;
     greeting = 'World';
     columns = COLS;
+    currentRecord;
     accountList;
     wiredAccountList;
-    user = Id;
     currentUserName;
     showInputField = false;
     newAccountName = '';
     newPhone = '';
     draftValues = [];
 
+    @wire(CurrentPageReference) currentPageReference;
+    
     @wire(getRecord, {recordId: Id, fields: [USERNAME]})
     currentUserInfo({data, error}) {
         if (data) {
@@ -43,8 +54,9 @@ export default class AccountsTable extends LightningElement {
             console.log(error);
         }
     }
-
-    @wire(getAccounts) wiredAccounts(result)
+    
+    @wire(getAccounts, { currentAccountId: '$recordId'})
+    wiredAccounts(result)
      {  
         this.wiredAccountList = result;
         if (result.data) {
@@ -55,7 +67,21 @@ export default class AccountsTable extends LightningElement {
             console.log(result.error)
         }
     }
-
+    
+    async handleDeleteModal(event) {
+        const record = event.detail.row;
+        console.log(JSON.stringify(record));
+        const result = await ConfirmationModal.open({
+            // `label` is not included here in this example.
+            // it is set on lightning-modal-header instead
+            size: 'medium',
+            description: 'Accessible description of modal\'s purpose',
+            accountId: record.Id,
+            content: 'Are you sure you want to delete account with name: ' +record.Name+ '?',
+            wiredAccountList: this.wiredAccountList
+        });        
+    }
+    
     async handleSave(event) {
         // Convert datatable draft values into record objects
         const updatedFields = event.detail.draftValues;
