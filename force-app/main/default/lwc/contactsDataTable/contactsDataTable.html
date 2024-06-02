@@ -1,0 +1,96 @@
+<template>
+    <div class="slds-m-around_x-small">
+        <lightning-card variant="Narrow"  title="Contacts Dynamic table search" icon-name="standard:search">
+            <div class="slds-m-around_medium">
+                <lightning-input type="search" label="Search Other Accounts' Contacts" value={searchKey} onchange={handleSearch}></lightning-input>
+            </div>
+            <template if:true={searchResults}>
+                <p class="slds-p-horizontal_medium">{searchMessage.title}! {searchMessage.message}</p>
+            </template>
+        </lightning-card>
+    </div>
+    <div class="slds-m-around_x-small">
+        <lightning-card variant="Narrow" title={cardTitle.message} icon-name="standard:contact_list">
+            <template if:true={contactsList}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={contactsList}
+                    onsave={handleSave}
+                    hide-checkbox-column="true"
+                    draft-values={draftValues}
+                    onrowaction={handleAssignToAccount}
+                    columns={columns}
+                    name="Updated"
+                    >
+                </lightning-datatable>
+            </template>
+        </lightning-card> 
+    </div>
+    <div class="slds-m-around_x-small">
+        <lightning-card title="New Contacts">
+            <div class="slds-m-around_x-small">
+                <lightning-button 
+                    icon-name="utility:add" 
+                    alternative-text="Add" 
+                    variant="border-filled" 
+                    class="green-icon"
+                    label="Add New Contact" 
+                    onclick={handleAddContact}>
+                </lightning-button>
+                <template if:true={showInputField}>
+                    <template for:each={contacts} for:item="newContact" for:index="index">
+                        <div key={newContact.Id} class="slds-box slds-m-around_medium">
+                                <div class="slds-grid slds-gutters">
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                        <lightning-input 
+                                            label="First Name" 
+                                            value={newContact.FirstName}
+                                            data-index={index} 
+                                            onchange={handleInputChange}
+                                            data-field="FirstName"
+                                        ></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                        <lightning-input 
+                                            label="Last Name" 
+                                            value={newContact.LastName} 
+                                            data-index={index}
+                                            onchange={handleInputChange}
+                                            data-field="LastName"
+                                        ></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                        <lightning-input 
+                                            label="Phone" 
+                                            value={newContact.Phone}
+                                            data-index={index} 
+                                            onchange={handleInputChange}
+                                            data-field="Phone"
+                                        ></lightning-input>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                        <lightning-input 
+                                            label="Email" 
+                                            value={newContact.Email}
+                                            data-index={index} 
+                                            onchange={handleInputChange}
+                                            data-field="Email"
+                                        ></lightning-input>
+                                    </div>
+                                    <div style="margin-top: auto" class="slds-col slds-size_1-of-1 slds-large-size_1-of-5">
+                                        <lightning-button
+                                            icon-name="utility:delete"
+                                            variant="destructive"
+                                            data-index={index}
+                                            onclick={handleRemoveContact}>
+                                        </lightning-button>
+                                    </div>
+                                </div> 
+                            </div>  
+                    </template>
+                    <lightning-button name="Inserted" label="Save" onclick={handleSave}></lightning-button>
+                </template>
+            </div>
+        </lightning-card>
+    </div>
+</template>

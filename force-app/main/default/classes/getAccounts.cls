@@ -25,7 +25,7 @@ public class getAccounts {
     }
 
     @AuraEnabled
-    public static string updateAccounts(Object data) {
+    public static string upsertContacts(Object data) {
         system.debug(data);
         List<Account> accountToUpdate = (List<Account>) JSON.deserialize(JSON.serialize(data), List<Account>.class);
         system.debug(accountToUpdate);
