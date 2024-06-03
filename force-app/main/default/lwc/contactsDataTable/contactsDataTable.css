@@ -1,0 +1,25 @@
+.custom-modal-container {
+    width: 80%; /* Adjust the width as needed to control the overall width of the modal */
+    max-width: 80%; /* Ensures the modal doesn't exceed this width, maintaining responsiveness */
+}
+
+.custom-modal-container-div {
+    background-color: #ffffff; /* Sets the background color to white */
+    border-radius: 8px; /* Optional: Adds rounded corners to the modal container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for a 3D effect */
+}
+
+.custom-modal__close {
+    top: auto; /* Removes any top positioning */
+    right: 0.5rem; /* Positions the close button slightly to the right */
+}
+
+.custom_datatable_scroll_height {
+    height: 180px; /* Sets a fixed height for the datatable's scrollable area */
+}
+
+@media screen and (max-width: 1023px) {
+    .custom_float {
+        float: left; /* Ensures that the element floats to the left on screens smaller than 1024px */
+    }
+}
